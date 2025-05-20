@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAO APERTE NO BOTAO</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h2>Não aperte nesse botao 3 vezes porfavor!!</h2>
+        </div>
+        <div>
+            <button id="botao">BOTÃO</button>
+        </div>
+    </main>
+</body>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: greenyellow;
+        overflow: hidden;
+        text-align: center;
+    }
+    button{
+        background-color: coral;
+        box-shadow: 2px 3px 6px black;
+        border: none;
+        padding: 20px;
+        position: relative;
+        top: 120px;
+    }
+    button:active{
+        box-shadow: 1px 1px 4px black;
+    }
+    h2{
+        color: rgb(177, 166, 166);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        text-align: center;
+    }
+    img{
+        width: auto;
+        height: auto;
+    }
+</style>
+<script>
+    let h2 = document.querySelector("h2")
+    let botao = document.querySelector("button")
+    let musica1 = new Audio("Windows XP startup earrape_160k.mp3")
+    let musica2 = new Audio("Trote da Cabea de Cebola.mp3")
+    let musica3 = new Audio("horror-suspense-empty-minded-337967.mp3")
+    let tudo = document.querySelector("body")
+
+    let clicks = 0
+
+    tocando = false
+
+    let total__falas = ""
+
+    let falas={
+        0: "NAO PORFAVOR",
+        1: "EU AVISEI",
+        2: "PARA DE CLICARRRRRR",
+        3: "AAAAAAAAAAAA",
+        4: "EU AVISEI DE NOVO CABEÇUDO",
+        5: "A COISA VAI FICAR FEIA PARA O SEU LADO",
+        6: "VOCE TA FERRADO",
+        7: "eu to falando",
+        8: "NAO OLHA PRA TRAS"
+    }
+
+    botao.addEventListener("click", ()=>{
+        if (tocando) {
+            console.log("Espere a música 2 terminar!");
+            return;
+        }
+        clicks++;
+        h2.innerHTML = falas[total__falas++];
+        if(total__falas===2){
+            musica1.play()
+        }
+        if(total__falas===3){
+            musica1.pause()
+        }
+        if(total__falas === 5){
+            musica2.play()
+            tocando = true
+            musica2.addEventListener("ended", () => {
+                tocando = false;
+            });
+        }
+        if(total__falas>8){
+            musica3.play()
+            tudo.style.background = "red"
+            botao.innerHTML = `<img src="terror.jpg" alt="">`
+            h2.innerHTML = "NAO OLHA PRA TRAS"
+
+        }
+    })
+</script>
+</html>
